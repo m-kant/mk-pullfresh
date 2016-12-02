@@ -1,0 +1,164 @@
+/**
+	FOR pull-to-refresh
+*/
+@mkpf-indicator-size: 32px;
+@mkpf-line-color: #aaa;
+@mkpf-material-back: #fff;
+
+/* BUBBLE indicators container and transport */
+.mk-pullfresh-bubble {
+  text-align: center;
+  overflow: hidden;
+  position: relative;
+  z-index: 1000;
+
+  .mkpf-envelop {
+	display: block;
+	width: 100%;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	padding-bottom:5px;
+  }
+}
+
+/* INDICATOR */
+.mkpf-indicator,
+.mkpf-indicator *{
+  box-sizing: border-box;
+}
+/* container of indicator - arrow and spinner */
+.mkpf-indicator-wrapper{}
+/* graphic circle, containing arrow and spinner */
+.mkpf-indicator {
+  display: inline-block;
+  position: relative;
+  border: 1px solid @mkpf-line-color;
+  border-radius: 50%;
+  width: @mkpf-indicator-size;
+  height: @mkpf-indicator-size;
+}
+/* container of arrow, dummy to rotate it */
+.mkpf-icon-wrapper {
+  display: inline-block;
+  box-sizing: border-box;
+  position: absolute;
+  top:-1px; /* because of border width of parent */
+  left:-1px;
+  border-radius: 50%;
+  width: @mkpf-indicator-size;
+  height: @mkpf-indicator-size;
+  transition: transform 300ms, opacity 500ms;
+}
+/* arrow line, part of arrow icon */
+.mkpf-arrow-down{
+	display: inline-block;
+	width:1px;
+	height:20px;
+	position: absolute;
+	top:5px;
+	left:15px;
+	border-left: 1px solid @mkpf-line-color;
+}
+/* arrowhead, part of arrow icon  */
+.mkpf-arrow-down:after{
+	content: '';
+	display: inline-block;
+	width:10px;
+	height:10px;
+	border: 1px solid @mkpf-line-color;
+	border-left: none;
+	border-top:none;
+	transform: rotate(45deg) translateY(4px) translateX(-4px);
+}
+/* spinner big radius */
+.mkpf-spinner{
+	display: none;
+	position: absolute;
+	top:-1px;
+	left:-1px;
+	border-radius: 50%;
+	width: @mkpf-indicator-size;
+	height: @mkpf-indicator-size;
+	animation: mkpf-rotate .8s infinite linear;
+}
+/* spinner pointer-circle */
+.mkpf-spinner:after{
+	display: inline-block;
+	content: '';
+	border-radius:50%;
+	background-color:@mkpf-line-color;
+	position: absolute;
+	top:2px;
+	left: 2px;
+	height:6px;
+	width: 6px;
+}
+
+/* STATES transitions */
+[data-mkpf-state=idle]{
+	.mkpf-icon-wrapper {
+		opacity: 0;
+	}
+	.mk-pullfresh-bubble {
+		/*анимация по возвращению индикатора на место*/
+		transition: height 300ms;
+	}
+}
+[data-mkpf-state=active] .mkpf-icon-wrapper {
+  opacity: 1;
+}
+[data-mkpf-state=ready] .mkpf-icon-wrapper {
+  opacity: 1;
+  transform: rotate(180deg);
+}
+[data-mkpf-state=pending]{
+	.mkpf-icon-wrapper {
+		opacity: 0;
+		transform: rotate(180deg);
+	}
+	.mkpf-spinner {
+	  display: inline-block;
+	}
+	.mk-pullfresh-bubble,{
+		/* плавно сдуваем пузырь до размеров ожидания */
+		transition: height 300ms;
+	}
+}
+
+
+@keyframes mkpf-rotate{
+	0% {transform: rotate(0deg);}
+	100% {transform: rotate(360deg);}
+}
+
+/* MATERIAL STYLE applicable to puller */
+.mkpf-material{
+	position: relative;
+
+	&[data-mkpf-state=active],
+	&[data-mkpf-state=ready]{
+		user-select: none;
+	}
+
+	.mk-pullfresh-bubble{
+		position: absolute;
+		width: 100%;
+	}
+	.mkpf-envelop{
+		bottom:5px;
+	}
+	.mkpf-indicator-wrapper{
+		background-color: @mkpf-material-back;
+		display: inline-block;
+		width: 40px;
+		height: 40px;
+		padding:3px;
+		border-radius: 50%;
+		border: 1px solid @mkpf-line-color;
+		box-shadow: 2px 2px 9px rgba(0,0,0,.4);
+	}
+
+}
+
+

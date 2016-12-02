@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>тесты</title>
+
+    <link href="styles.css" rel="stylesheet">
+	<!--third part dependencies-->
+	<script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" crossorigin="anonymous">
+
+	<!--pull to refresh plugin-->
+	<script src="../build/mk-pullfresh.js" type="text/javascript"></script>
+    <link  href="../build/mk-pullfresh.css" rel="stylesheet">
+
+
+	<style>
+
+	</style>
+</head>
+
+<body>
+<div class='container'>
+	<h1>mkPullFresh</h1>
+	<p>
+		Pull to refresh jQuery plugin for mobile and desktop with CSS animation.
+		Extremely simple usage. Asynchronous stop. Fully customizable. Material design included.
+	</p>
+
+	<div id="container">
+
+		<h2>Basic usage</h2>
+		<p>Include script and style sheet into you page:</p>
+		<pre>
+&#60;script src="path/to/plugin/mk-pullfresh.min.js" type="text/javascript">&#60;/script>
+&#60;link  href="path/to/plugin/mk-pullfresh.min.css" rel="stylesheet"></pre>
+
+		<p>Then initialize mkPullFresh on element you want to pull by one of the ways:</p>
+
+		<div class='row'>
+			<div class="col-sm-6">
+
+
+				<div class="pull-scroller">
+					<div id='textEl'>
+						<div class="log"></div>
+						<p>Pull this text down by mouse or finger and drop it to refresh content of the box.</p>
+						<p><a class='btn' onclick="$(this).toggleClass('green')" href="javascript:void(0)">Clickable</a>
+						Clickable element is to show, that all events are workable inside pulled element. It must change color from
+						gray to green. Default swipe is workable too. You can scroll overflowed text with touch devices, mkPullFresh
+						works only from the top of element.</p>
+						<p>Just overflowed text. Just overflowed text. Just overflowed text. Just overflowed text. Just overflowed text. Just overflowed text. Just overflowed text. Just overflowed text. Just overflowed text.</p>
+					</div>
+				</div>
+			</div><!--.col-sm-6-->
+			<div class="col-sm-6">
+				<pre>$('.pulled').mkPullFresh();</pre>
+				<pre>
+$('.pulled').mkPullFresh(function(end){
+    // some code, may be async
+    end(); // stop pending state of pull indicator
+  });
+				</pre>
+				<pre>$('.pulled').mkPullFresh(options);</pre>
+			</div><!--.col-sm-6-->
+		</div><!--.row-->
+		<br />
+		<p class="alert alert-warning">Don't forget to call end() from your callback to stop pending state of mkPullFresh</p>
+
+		<h2>Options</h2>
+		<table width='100%' class='table table-striped'>
+			<tr><th>option</th><th>default</th><th>description</th></tr>
+			<tbody>
+				<tr><td>maxShift</td><td>100</td><td>maximum offset in pixels to pull element down</td></tr>
+				<tr><td>readyShift</td><td>50</td><td>offset in pixels to be ready for refresh</td></tr>
+				<tr><td>pendingShift</td><td>50</td><td>offset in pixels in pending state</td></tr>
+				<tr><td>refresh</td><td>1500</td><td>Callback function or milliseconds. Function will be called with only arg - end. End - is a function you have to call to stop pending state of mkPullFresh. 'this' arg will be a mkPullFresh instance.</td></tr>
+				<tr><td>indicatorHtml</td><td>''</td><td>Html code of pull-to-refresh indicator</td></tr>
+				<tr><td>emitEvents</td><td>false</td><td>
+						if true, will emit following events on puller:
+						<ul>
+							<li>mkPullFreshStart(jqEvent,yShift,plugin),</li>
+							<li>mkPullFreshPull(jqEvent,yShift,plugin)on move,</li>
+							<li>mkPullFreshPending(jqEvent,end,plugin) on refreshing, waiting for the end,</li>
+							<li>mkPullFreshEnd(jqEvent,plugin)</li>
+						</ul>
+						jqEvent - jQuery event, yShift - is a y-axis offset, plugin - is a plugin instance
+				</td></tr>
+			</tbody>
+		</table>
+
+		<h2>Understanding dynamics</h2>
+		<p>
+			Apply mkPullFresh to block you want to pull. Attribute <span class='badge'>data-mkpf-state</span> will be added to it with initial value 'idle'.
+			Also will be prepended <span class='badge'>div.mk-pullfresh-bubble</span> with initial height 0, with indicator inside. When you pull the block,
+			you increase height of <span class='badge'>div.mk-pullfresh-bubble</span>, shifting down the content.
+			<span class='badge'>data-mkpf-state</span> changes its value depending on state:
+			<span class='badge'>idle</span>><span class='badge'>active</span>><span class='badge'>ready</span>><span class='badge'>pending</span>><span class='badge'>idle</span>
+		</p>
+		<div class="row">
+		  <div class="col-sm-3">
+			<div class="thumbnail">
+			  <img src="images/understanding-dynamics_idle.png" alt="mkPullFresh. Pull to refresh plugin scheme">
+			  <div class="caption">
+				<p>Idle state</p>
+				<p class='small'>Bubble at the top of element is zero height</p>
+			  </div>
+			</div>
+		  </div><!--.col-->
+
+		  <div class="col-sm-3">
+			<div class="thumbnail">
+			  <img src="images/understanding-dynamics_active.png" alt="mkPullFresh. Pull to refresh plugin scheme">
+			  <div class="caption">
+				<p>Active state</p>
+				<p class='small'>Start to pull, and pump up the bubble</p>
+			  </div>
+			</div>
+		  </div><!--.col-->
+
+		  <div class="col-sm-3">
+			<div class="thumbnail">
+			  <img src="images/understanding-dynamics_ready.png" alt="mkPullFresh. Pull to refresh plugin scheme">
+			  <div class="caption">
+				<p>Ready state</p>
+				<p class='small'>Offset more then readyShift</p>
+			  </div>
+			</div>
+		  </div><!--.col-->
+
+		  <div class="col-sm-3">
+			<div class="thumbnail">
+			  <img src="images/understanding-dynamics_pending.png" alt="mkPullFresh. Pull to refresh plugin scheme">
+			  <div class="caption">
+				<p>Pending state</p>
+				<p class='small'>Puller dropped, plugin is waiting for calling end() callback</p>
+			  </div>
+			</div>
+		  </div><!--.col-->
+		</div><!--.row-->
+
+		<h2>Events</h2>
+		<p>
+			If you set option <span class="badge">emitEvents</span> to <span class="badge">true</span>, then events will be emitted on puller element.
+		</p>
+		<div class='row' id='eventsEl'>
+			<div class="col-sm-6">
+				<div class="pull-scroller">
+					<div class='puller'>
+						<p>Pull this text down by mouse or finger and drop it to refresh content of the box.</p>
+						<p><a class='btn' onclick="$(this).toggleClass('green')" href="javascript:void(0)">Clickable</a>
+						Clickable element is to show, that all events are workable inside pulled element. It must change color from
+						gray to green. Default swipe is workable too. You can scroll overflowed text with touch devices, mkPullFresh
+						works only from the top of element.</p>
+						<p>Just overflowed text. Just overflowed text. Just overflowed text. Just overflowed text. Just overflowed text. Just overflowed text. Just overflowed text. Just overflowed text. Just overflowed text.</p>
+					</div>
+				</div>
+			</div><!--.col-sm-6-->
+			<div class="col-sm-6">
+				<pre class="log"></pre>
+				<pre>
+$('#puller').mkPullFresh({ emitEvents: true })
+	.on('mkPullFreshStart',  function(e,y,pf)  {mylog('start.');})
+	.on('mkPullFreshPull',   function(e,y,pf)  {mylog('start. pull('+y+'). ');})
+	.on('mkPullFreshPending',function(e,end,pf){mylog('pending. ',true);setTimeout(end,1000)})
+	.on('mkPullFreshEnd',    function(e,pf)  {mylog('end.',true);});
+				</pre>
+			</div><!--.col-sm-6-->
+		</div><!--.row-->
+		<br />
+		<table width='100%' class='table table-striped'>
+			<tr><th>event</th><th>arguments</th><th>description</th></tr>
+			<tbody>
+				<tr><td>mkPullFreshStart</td><td>jqEvent, yOffset, plugin</td><td>when pull starts</td></tr>
+				<tr><td>mkPullFreshPull</td><td>jqEvent, yOffset, plugin</td><td>on every pointer (finger) movement</td></tr>
+				<tr><td>mkPullFreshPending</td><td>jqEvent, end, plugin</td><td>do refresh code here, <span class='inline-danger'>don't forget to call end()</span></td></tr>
+				<tr><td>mkPullFreshEnd</td><td>jqEvent, plugin</td><td>when pull or pending state ends</td></tr>
+			</tbody>
+		</table>
+
+
+		<h2>Plugin instance</h2>
+		<p>
+			Events gets plugin instance as argument. It has some usefull properties
+		</p>
+		<br />
+		<table width='100%' class='table table-striped'>
+			<tr><th>property</th><th>type</th><th>description</th></tr>
+			<tbody>
+				<tr><td>options</td><td>object</td><td>options of current instance</td></tr>
+				<tr><td>$puller</td><td>jQuery</td><td>pulled element</td></tr>
+				<tr><td>puller</td><td>DOMElelmnt</td><td>pulled element</td></tr>
+				<tr><td>$container</td><td>jQuery</td><td>puller parent</td></tr>
+				<tr><td>$bubble</td><td>jQuery</td><td>div.mk-pullfresh-bubble with indicator inside</td></tr>
+				<tr><td>bubble</td><td>DOMElelmnt</td><td>div.mk-pullfresh-bubble with indicator inside</td></tr>
+				<tr><td>pointer</td><td>object</td><td>
+						current pointer state: <ul>
+							<li>y - current y-position of pointer</li>
+							<li>start - y-position where current pull were started</li>
+							<li>shift - current pointer y-offset</li>
+						</ul>
+					</td></tr>
+			</tbody>
+		</table>
+
+		<h2>Customizing</h2>
+		<p>
+			You can fully change look and behavior of indicator. Set another html for indicator in <span class='badge'>options.indicatorHtml</span>.
+			Set context styles depending on attribute <span class='badge'>data-mkpf-state</span>
+		</p>
+		<div class='row' id='custom1El'>
+			<div class="col-sm-6">
+				<div class="pull-scroller">
+					<div class='puller custom-puller'>
+						<p>Pull this text down by mouse or finger and drop it to refresh content of the box.</p>
+						<p><a class='btn' onclick="$(this).toggleClass('green')" href="javascript:void(0)">Clickable</a>
+						Clickable element is to show, that all events are workable inside pulled element. It must change color from
+						gray to green. Default swipe is workable too. You can scroll overflowed text with touch devices, mkPullFresh
+						works only from the top of element.</p>
+						<p>Just overflowed text. Just overflowed text. Just overflowed text. Just overflowed text. Just overflowed text. Just overflowed text. Just overflowed text. Just overflowed text. Just overflowed text.</p>
+					</div>
+				</div>
+			</div><!--.col-sm-6-->
+			<div class="col-sm-6">
+			indicatorHtml
+			<pre>
+&#60;div class="mkpf-envelop">
+	&#60;div class="active">pull down&#60;/div>
+	&#60;div class="ready">drop to refresh&#60;/div>
+	&#60;div class="pending">pending ...&#60;/div>
+&#60;/div></pre>
+			</div><!--.col-sm-6-->
+		</div><!--.row-->
+			javascript
+			<pre>$('#custom1El .puller').mkPullFresh({
+	indicatorHtml: '&#60;div class="mkpf-envelop">&#60;div class="active">pull down&#60;/div>&#60;div class="ready">drop to refresh&#60;/div>&#60;div class="pending">pending ...&#60;/div>&#60;/div>',
+	pendingShift: 35
+});</pre>
+CSS styles
+				<pre>
+.custom-puller .mkpf-envelop div{
+	  display: none;
+ }
+.custom-puller[data-mkpf-state=active] .active{
+  display: block;
+}
+.custom-puller[data-mkpf-state=ready]  .ready{
+ display: block;
+}
+.custom-puller[data-mkpf-state=pending] .pending{
+ display: block;
+}
+.custom-puller[data-mkpf-state=active]  .mk-pullfresh-bubble{
+ background-color: #ddd;
+}
+.custom-puller[data-mkpf-state=ready]   .mk-pullfresh-bubble{
+ background-color: #ffffcc;
+}
+.custom-puller[data-mkpf-state=pending] .mk-pullfresh-bubble{
+ background-color: #ccffcc;
+}</pre>
+
+
+		<h3>Material design style</h3>
+		<p>
+			Another approach is to pull only indicator, but not to pull text, like in mobile Chrome. It's much better for
+			performance, movements looks smoother on mobile devices. It can be done just with CSS. This styles are
+			already included. Just add <span class='badge'>mkpf-material</span> class to puller.
+		</p>
+		<div class='row' id='custom2El'>
+			<div class="col-sm-6">
+				<div class="pull-scroller">
+					<div class='puller mkpf-material'>
+						<p>Pull this text down by mouse or finger and drop it to refresh content of the box.</p>
+						<p><a class='btn' onclick="$(this).toggleClass('green')" href="javascript:void(0)">Clickable</a>
+						Clickable element is to show, that all events are workable inside pulled element. It must change color from
+						gray to green. Default swipe is workable too. You can scroll overflowed text with touch devices, mkPullFresh
+						works only from the top of element.</p>
+						<p>Just overflowed text. Just overflowed text. Just overflowed text. Just overflowed text. Just overflowed text. Just overflowed text. Just overflowed text. Just overflowed text. Just overflowed text.</p>
+					</div>
+				</div>
+			</div><!--.col-sm-6-->
+			<div class="col-sm-6">
+
+			<pre style='height: 200px;'>.mkpf-material{
+	position: relative;
+	user-select: none;
+}
+.mkpf-material .mk-pullfresh-bubble{
+	position: absolute;
+	width: 100%;
+}
+
+.mkpf-material .mkpf-indicator-wrapper{
+	background-color: #fff;
+	display: inline-block;
+	width: 40px;
+	height: 40px;
+	padding:3px;
+	border-radius: 50%;
+	border: 1px solid #ddd;
+	box-shadow: 2px 0px 10px rgba(0,0,0,.4);
+}</pre>
+			</div><!--.col-sm-6-->
+		</div><!--.row-->
+
+	<h2>Scrolling warning</h2>
+	<p>Don't apply constrains to height with auto scrolls directly to puller. If you want to put scrollable text into
+	constrained blocks like here in examples, wrap it with additional block with constrained height, but don't apply height
+	constrains to the puller.</p>
+
+	</div><!--#container-->
+	<p>&nbsp;</p>
+
+
+
+
+	<script>
+
+
+$(textEl).mkPullFresh(function(end){
+        var self = this;
+		//end()
+		setTimeout(function(){
+			self.$puller.find('.log').html( '<p>Refreshed at '+(new Date())+'</p>' );
+			end();
+		},1000);
+    });
+
+var elog = createLogger( eventsEl );
+$('#eventsEl .puller').mkPullFresh({ emitEvents: true })
+	.on('mkPullFreshStart',  function(e,y,pf)  {elog('start.');})
+	.on('mkPullFreshPull',   function(e,y,pf)  {elog('start. pull('+y+'). '); })
+	.on('mkPullFreshPending',function(e,end,pf){elog('pending. ',true);setTimeout(end,1000)})
+	.on('mkPullFreshEnd',    function(e,y,pf)  {elog('end.',true);});
+
+$('#custom1El .puller').mkPullFresh({
+	indicatorHtml: '<div class="mkpf-envelop"><div class="active">pull down</div><div class="ready">drop to refresh</div><div class="pending">pending ...</div></div>',
+	pendingShift: 35
+});
+$('#custom2El .puller').mkPullFresh();
+
+
+function createLogger(element){
+	return function(message,append){
+		if(append){
+			$(element).find('.log').append(message);
+		}else{
+			$(element).find('.log').html(message);
+		}
+	};
+};
+
+	</script>
+</div><!--.container-->
+
+</body></html>
