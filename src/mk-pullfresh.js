@@ -48,19 +48,19 @@ $('.selector').mkPullFresh(function(end){
 (function($, window, document) {
 
 	var namespace = 'mkPullFresh';
-    var defaults = {
+	var defaults = {
 			maxShift: 100, // maximum available shift of pulled element
 			readyShift: 60, // shift of pulled element to be ready for refresh
-            refresh: null, // callback
+			refresh: null, // callback
 			pendingShift: 60,
 			indicatorHtml: '<div class="mkpf-envelop"><div class="mkpf-indicator-wrapper"><div class="mkpf-indicator"><div class="mkpf-icon-wrapper"><i class="mkpf-arrow-down"></i></div><i class="mkpf-spinner"></i></div></div></div>',
 			emitEvents: false
-        };
+		};
 
 	var _supportTouch =  (window.Modernizr && Modernizr.touch === true) || (function () {
-            'use strict';
-            return !!(('ontouchstart' in window) || window.DocumentTouch && document instanceof DocumentTouch);
-        })();
+			'use strict';
+			return !!(('ontouchstart' in window) || window.DocumentTouch && document instanceof DocumentTouch);
+		})();
 
 	/**
 	 * adds namespaces to event names
@@ -75,34 +75,34 @@ $('.selector').mkPullFresh(function(end){
    // events names with namespaces based on browser support
 	var _domEvent  = (function () {
 		var events = {
-            start: _ns('mousedown'),
-            move: _ns('mousemove'),
-            end: _ns('mouseup')
-        };
+			start: _ns('mousedown'),
+			move: _ns('mousemove'),
+			end: _ns('mouseup')
+		};
 
-        if (_supportTouch) {
-            var events = {
-                start: _ns('touchstart'),
-                move: _ns('touchmove'),
-                end: _ns('touchend')
-            };
-        }else if (!!(window.navigator.msPointerEnabled)) {
-            events = {
-                start: _ns('MSPointerDown'),
-                move: _ns('MSPointerMove'),
-                end: _ns('MSPointerUp')
-            };
-        }else if (!!(window.navigator.pointerEnabled)) {
-            events = {
-                start: _ns('pointerdown'),
-                move: _ns('pointermove'),
-                end: _ns('pointerup')
-            };
-        }
+		if (_supportTouch) {
+			var events = {
+				start: _ns('touchstart'),
+				move: _ns('touchmove'),
+				end: _ns('touchend')
+			};
+		}else if (!!(window.navigator.msPointerEnabled)) {
+			events = {
+				start: _ns('MSPointerDown'),
+				move: _ns('MSPointerMove'),
+				end: _ns('MSPointerUp')
+			};
+		}else if (!!(window.navigator.pointerEnabled)) {
+			events = {
+				start: _ns('pointerdown'),
+				move: _ns('pointermove'),
+				end: _ns('pointerup')
+			};
+		}
 
-        return events;
+		return events;
 
-    })();
+	})();
 
 
 	/**
@@ -112,9 +112,9 @@ $('.selector').mkPullFresh(function(end){
 	 * @param {object} options
 	 * @returns {jQuery}
 	 */
-    function Plugin (element, refresh, options) {
-        this.element = element;
-        this.options = $.extend({}, defaults, options);
+	function Plugin (element, refresh, options) {
+		this.element = element;
+		this.options = $.extend({}, defaults, options);
 		this.options.refresh = refresh;
 
 		// find dom elements
@@ -151,9 +151,9 @@ $('.selector').mkPullFresh(function(end){
 		this.$puller.on(_domEvent.start, _onStart.bind(this));
 		this.$puller.unbind(_domEvent.end);
 		this.$puller.on(_domEvent.end, _onEnd.bind(this) );
-    }
+	}
 
-    Plugin.prototype = {
+	Plugin.prototype = {
 		pullStart: function(pixels){
 			this.puller.setAttribute('data-mkpf-state','active');
 			this.bubble.style.height = pixels+'px';
@@ -206,19 +206,19 @@ $('.selector').mkPullFresh(function(end){
 			return y;
 		},
 
-        // destroy
-        destroy: function () {
-            this.puller.removeAttribute('data-mkpf-state');
+		// destroy
+		destroy: function () {
+			this.puller.removeAttribute('data-mkpf-state');
 
-            // off listener
-            this.$puller.off(_domEvent.start);
-            this.$puller.off(_domEvent.move);
-            this.$puller.off('touchend.' + namespace);
-            $(document.body).off(_domEvent.move);
+			// off listener
+			this.$puller.off(_domEvent.start);
+			this.$puller.off(_domEvent.move);
+			this.$puller.off('touchend.' + namespace);
+			$(document.body).off(_domEvent.move);
 
-            this.$puller.removeData('plugin_' + namespace);
-        }
-    };
+			this.$puller.removeData('plugin_' + namespace);
+		}
+	};
 
 
 	function PluginCommand($element,command){
@@ -236,9 +236,9 @@ $('.selector').mkPullFresh(function(end){
 
 	var _onStart = function(ev){
 		if (this.pending) { return false; }
-		// don't isten if top of container above the edge of document
+		// don't listen if top of container is above the edge of document
 		if(this.offset.containerToDoc < $(document).scrollTop()) return true;
-		// don't isten if top of puller above the edge of container
+		// don't listen if top of puller is above the edge of container
 		if(this.offset.pullerToContainer < this.$container.scrollTop()) return true;
 
 		this.pointer.start = this.pointer.y = this.pointerY(ev);
@@ -280,7 +280,7 @@ $('.selector').mkPullFresh(function(end){
 	};
 
 	var _onEnd = function () {
-        var self = this;
+		var self = this;
 
 		// stop listening moving
 		this.$puller.unbind(_domEvent.move);
@@ -317,8 +317,8 @@ $('.selector').mkPullFresh(function(end){
 
 
 	// ASSIGN jQuery plugin
-    $.fn[namespace] = function(refreshCallback,options) {
-        // COMMAND
+	$.fn[namespace] = function(refreshCallback,options) {
+		// COMMAND
 		if('string' === typeof refreshCallback){
 			return PluginCommand(this,refreshCallback);
 
@@ -329,10 +329,10 @@ $('.selector').mkPullFresh(function(end){
 		}
 		// INITIALIZATION
 		return this.each(function() {
-            if (!$.data(this, 'plugin_' + namespace)) {
-                $.data(this, 'plugin_' + namespace, new Plugin(this, refreshCallback,options));
-            }
-        });
-    };
+			if (!$.data(this, 'plugin_' + namespace)) {
+				$.data(this, 'plugin_' + namespace, new Plugin(this, refreshCallback,options));
+			}
+		});
+	};
 
 })(jQuery, window, document);
