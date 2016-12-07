@@ -1,16 +1,17 @@
 {
-  "author": "m-kant",
-  "name": "mkPullFresh",
+  "author": "mkant",
+  "name": "mk-pullfresh",
   "description": "Pull to Refresh jQuery plugin",
   "keywords": [
     "jquery-plugin",
+	"ecosystem:jquery ",
     "UI",
     "widget",
     "pull to refresh",
     "CSS3",
     "animation"
   ],
-  "version": "1.0.1",
+  "version": "1.0.0",
   "license": "MIT",
   "repository": {
     "type": "git",
