@@ -1,9 +1,18 @@
 {
   "author": "m-kant",
   "name": "mkPullFresh",
-  "description": "Pull to Refresh jQuery plugin.",
-  "keywords": ["jquery-plugin","UI","Pull to refresh","CSS3 animation"],
+  "description": "Pull to Refresh jQuery plugin",
+  "keywords": ["jquery-plugin","UI","widget","pull to refresh","CSS3", "animation"],
   "version": "1.0.0",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/m-kant/mk-pullfresh"
+  },
+  "bugs": {
+    "url": "https://github.com/m-kant/mk-pullfresh/issues"
+  },
+  "homepage": "http://mkant.ru/mink-js/mk-pullfresh/",
   "devDependencies": {
     "del": "^2.2.1",
     "gulp": "github:gulpjs\/gulp#4.0",
