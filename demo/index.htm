@@ -30,6 +30,8 @@
 		Extremely simple usage. Asynchronous stop. Fully customizable. Material design included.
 	</p>
 
+	<div><a class="btn btn-default" href="https://github.com/m-kant/mk-pullfresh">Download from GIT Hub</a></div>
+
 	<div id="container">
 
 		<h2>Basic usage</h2>
@@ -176,7 +178,7 @@ $('#puller').mkPullFresh({ emitEvents: true })
 			<tbody>
 				<tr><td>mkPullFreshStart</td><td>jqEvent, yOffset, plugin</td><td>when pull starts</td></tr>
 				<tr><td>mkPullFreshPull</td><td>jqEvent, yOffset, plugin</td><td>on every pointer (finger) movement</td></tr>
-				<tr><td>mkPullFreshPending</td><td>jqEvent, end, plugin</td><td>do refresh code here, <span class='inline-danger'>don't forget to call end()</span></td></tr>
+				<tr><td>mkPullFreshPending</td><td>jqEvent, end, plugin</td><td>when puller dropped, do refresh code here, <span class='inline-danger'>don't forget to call end()</span></td></tr>
 				<tr><td>mkPullFreshEnd</td><td>jqEvent, plugin</td><td>when pull or pending state ends</td></tr>
 			</tbody>
 		</table>
@@ -184,7 +186,7 @@ $('#puller').mkPullFresh({ emitEvents: true })
 
 		<h2>Plugin instance</h2>
 		<p>
-			Events gets plugin instance as argument. It has some usefull properties
+			Events gets plugin instance as argument. Some of the properties:
 		</p>
 		<br />
 		<table width='100%' class='table table-striped'>

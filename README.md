@@ -19,14 +19,14 @@ Then initialize mkPullFresh on element you want to pull by one of the ways:
 // no args, pending state will be 1 second long
 $('.pulled').mkPullFresh(); 
 
-// with refresh callback with one arg - 'end' function to stop pending when you need.
+// with refresh callback with one arg 'end' - function to stop pending when you need.
 $('.pulled').mkPullFresh(function(end){
     // some code, may be async
 	...
     end(); // stop pending state of pull indicator
   });
 
-// with options, refresh function can be passed in 'refresh' parameter
+// with options. Refresh function can be passed as 'refresh' parameter
 $('.pulled').mkPullFresh(options);
 
 // both refresh function and options given
