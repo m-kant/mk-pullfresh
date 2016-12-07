@@ -5,16 +5,19 @@ Pull to refresh jQuery plugin for mobile and desktop with CSS animation. Extreme
 [Demo](http://mkant.ru/mink-js/mk-pullfresh)
 
 
-Basic usage
+Installation
 -----------
 
-Include script and style sheet into you page:
+Include script and style sheet into your page:
 ```HTML
 <script src="path/to/plugin/mk-pullfresh.min.js" type="text/javascript"></script>
 <link  href="path/to/plugin/mk-pullfresh.min.css" rel="stylesheet">
 ```
 
-Then initialize mkPullFresh on element you want to pull by one of the ways:
+Basic usage
+-----------
+
+Initialize mkPullFresh on element you want to pull by one of the ways:
 ```JavaScript
 // no args, pending state will be 1 second long
 $('.pulled').mkPullFresh(); 
@@ -35,3 +38,4 @@ $('.pulled').mkPullFresh(refresh,options);
 ```
 
 [Details and Demo](http://mkant.ru/mink-js/mk-pullfresh)
+--------------------------------------------------------
