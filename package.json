@@ -1,13 +1,18 @@
 {
   "author": "mkant",
   "name": "mk-pullfresh",
-  "description": "Pull to Refresh jQuery plugin",
+  "description": "Pull to Refresh for mobile and desktop. Easy use, async stop, customizable, CSS animated",
   "keywords": [
     "jquery-plugin",
 	"ecosystem:jquery ",
     "UI",
     "widget",
     "pull to refresh",
+    "pull",
+    "pan",
+    "swipe",
+    "refresh",
+    "mobile",
     "CSS3",
     "animation"
   ],

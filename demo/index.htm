@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>тесты</title>
+    <title>Pull To Refresh jQuery plugin mkPullFresh</title>
 
     <link href="styles.css" rel="stylesheet">
 	<!--third part dependencies-->
@@ -30,7 +30,10 @@
 		Extremely simple usage. Asynchronous stop. Fully customizable. Material design included.
 	</p>
 
-	<div><a class="btn btn-default" href="https://github.com/m-kant/mk-pullfresh">Download from GIT Hub</a></div>
+	<div>
+		<a class="btn btn-default" href="https://github.com/m-kant/mk-pullfresh">Download from GIT Hub</a>
+		<a class="btn btn-default" href="https://www.npmjs.com/package/mk-pullfresh">Download as NPM package</a>
+	</div>
 
 	<div id="container">
 
@@ -83,11 +86,11 @@ $('.pulled').mkPullFresh(function(end){
 				<tr><td>indicatorHtml</td><td>''</td><td>Html code of pull-to-refresh indicator</td></tr>
 				<tr><td>emitEvents</td><td>false</td><td>
 						if true, will emit following events on puller:
-						<ul>
-							<li>mkPullFreshStart(jqEvent,yShift,plugin),</li>
-							<li>mkPullFreshPull(jqEvent,yShift,plugin)on move,</li>
-							<li>mkPullFreshPending(jqEvent,end,plugin) on refreshing, waiting for the end,</li>
-							<li>mkPullFreshEnd(jqEvent,plugin)</li>
+						<ul style="">
+							<li>mkPullFreshStart (jqEvent, yShift, plugin),</li>
+							<li>mkPullFreshPull (jqEvent, yShift, plugin)on move,</li>
+							<li>mkPullFreshPending (jqEvent, end, plugin) on refreshing, waiting for the end,</li>
+							<li>mkPullFreshEnd (jqEvent, plugin)</li>
 						</ul>
 						jqEvent - jQuery event, yShift - is a y-axis offset, plugin - is a plugin instance
 				</td></tr>
