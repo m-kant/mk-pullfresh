@@ -1,5 +1,9 @@
 {
-  "author": "mkant",
+  "author": {
+	"name":"mkant",
+	"email":"mkant@list.ru",
+	"url":"http://mkant.ru"
+  },
   "name": "mk-pullfresh",
   "description": "Pull to Refresh for mobile and desktop. Easy use, async stop, customizable, CSS animated",
   "keywords": [
@@ -20,7 +24,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/m-kant/mk-pullfresh"
+    "url": "https://github.com/m-kant/mk-pullfresh.git"
   },
   "bugs": {
     "url": "https://github.com/m-kant/mk-pullfresh/issues"

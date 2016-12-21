@@ -5,12 +5,12 @@ Pull to refresh jQuery plugin for mobile and desktop with CSS animation. Extreme
 [Demo](http://mkant.ru/mink-js/mk-pullfresh)
 
 
-Installation
+Including in browser
 -----------
 
 Include script and style sheet into your page:
 ```HTML
-<script src="path/to/plugin/mk-pullfresh.min.js" type="text/javascript"></script>
+<script src="path/to/plugin/mk-pullfresh.min.js"></script>
 <link  href="path/to/plugin/mk-pullfresh.min.css" rel="stylesheet">
 ```
 
