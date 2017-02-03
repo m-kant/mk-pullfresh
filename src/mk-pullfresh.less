@@ -64,12 +64,16 @@
 .mkpf-arrow-down:after{
 	content: '';
 	display: inline-block;
-	width:10px;
-	height:10px;
+	position:absolute;
+	bottom:-1px;
+	right:0.5px;
+	width:11px;
+	height:11px;
 	border: 1px solid @mkpf-line-color;
 	border-left: none;
 	border-top:none;
-	transform: rotate(45deg) translateY(4px) translateX(-4px);
+	transform-origin: bottom right;
+	transform: rotate(45deg);
 }
 /* spinner big radius */
 .mkpf-spinner{
