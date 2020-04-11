@@ -8,7 +8,7 @@
   "description": "Pull to Refresh for mobile and desktop. Easy use, async stop, customizable, CSS animated",
   "keywords": [
     "jquery-plugin",
-	"ecosystem:jquery ",
+	  "ecosystem:jquery ",
     "UI",
     "widget",
     "pull to refresh",
